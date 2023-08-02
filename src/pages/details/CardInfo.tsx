@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const CardInfo: FC = () => {
   const currentGalery = useSelector((state: RootState) => state.galery.image);
-  console.log(currentGalery);
 
   return (
     <Grid container spacing={1} className="container__">

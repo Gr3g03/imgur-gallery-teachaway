@@ -1,11 +1,8 @@
 .Cardwrapper{
     flex: 1;
     display: flex;
-    /* padding: 16px; */
     flex-direction: row;
     flex-wrap: wrap;
-    /* gap: 16px; */
-    /* justify-content: center     ; */
     overflow: hidden;
 }
  

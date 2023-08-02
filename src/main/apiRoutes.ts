@@ -5,6 +5,5 @@ export default {
       },
     galery: {
         galery: '3/gallery/',
-        // galery: '3/gallery/hot/viral/0',
     },
   };
