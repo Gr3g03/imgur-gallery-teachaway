@@ -28,14 +28,12 @@
 
 
 .card-img-top{
-    height: 100%;
-
+    /* height: 100%; */
     border-radius: 10px;
 } 
-.image{
-
+.imageCards{
     width: 100%;
-    height: 60%
+    height: 70%
 } 
 
 .tag{

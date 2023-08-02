@@ -25,11 +25,11 @@ const Card: FC<Props> = (props: Props) => {
           style={{ width: props.width ? props.width : 450, height: props.height ? props.height : 400, padding: props.padding ? props.padding : 0 }}
         >
           {props.animated ? (
-            <video muted draggable={false} autoPlay className="image" controls>
+            <video muted draggable={false} autoPlay className="imageCards" controls>
               <source type="video/mp4" src={props.uri} />
             </video>
           ) : (
-            <img className="image" src={props.uri} alt={props.uri} />
+            <img className="imageCards" src={props.uri} alt={props.uri} />
           )}
           <div className="card-body">
             <div className="card-text">{props.children}</div>
