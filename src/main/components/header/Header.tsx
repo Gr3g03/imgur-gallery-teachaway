@@ -25,6 +25,7 @@ const Header = () => {
 
   useMemo(() => {
     fetchImgurData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [section, sort, window]);
 
   return (
