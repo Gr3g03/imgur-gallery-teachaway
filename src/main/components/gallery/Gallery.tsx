@@ -1,36 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Card from '../cards/cards';
 import './Gallery.css';
-import { IImgurImage } from '../../interfaces/IImgurImage';
 import UseGetGalery from '../../hooks/useGetGalery';
-import { useDispatch } from 'react-redux';
-import { setSelectedImage } from '../../store/slices/galerySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPage, setSelectedImage } from '../../store/slices/galerySlice';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Pagination from '@mui/material/Pagination';
+import { IImage } from '../../interfaces/IImgurImage';
+import { RootState } from '../../store';
 const Gallery: React.FC = () => {
   const gallery = UseGetGalery();
   const dispatch = useDispatch();
 
-  const itemsPerPage = 10;
-  const totalPages = gallery && gallery.length / itemsPerPage;
-  const [currentPage, setCurrentPage] = useState(1);
-
+  const totalPages = useSelector((state: RootState) => state.galery.totalPages);
+  const page = useSelector((state: RootState) => state.galery.currentPage);
   const handleOnChange = (event: any, value: number) => {
-    setCurrentPage(value);
+    dispatch(setPage(value));
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = gallery && gallery.slice(startIndex, endIndex);
 
   return (
     <>
       <div className="wrapper">
         {gallery &&
-          currentItems &&
-          currentItems.map((image: IImgurImage) => (
+          gallery.map((image: IImage) => (
             <div className="discoverBody" key={image.id}>
               <div className="discoverBodyContiner" onClick={() => dispatch(setSelectedImage(image))}>
                 <Card
@@ -63,7 +57,7 @@ const Gallery: React.FC = () => {
       </div>
       <div className="pagination_">
         <div>
-          <Pagination className="pagination__" count={totalPages ? totalPages : 0} page={currentPage} onChange={handleOnChange} />
+          <Pagination className="pagination__" count={totalPages ? totalPages : 0} page={page} onChange={handleOnChange} />
         </div>
       </div>
     </>

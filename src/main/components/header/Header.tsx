@@ -1,23 +1,33 @@
 import { useMemo, useState } from 'react';
 import './Header.css';
 import { fetchImgurGallery } from '../../services/imgurServices';
-import { useDispatch } from 'react-redux';
-import { setGalery } from '../../store/slices/galerySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setGalery, setTotalPages } from '../../store/slices/galerySlice';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import { RootState } from '../../store';
 
 const Header = () => {
   const [section, setSection] = useState('hot');
   const [sort, setSort] = useState('viral');
   const [window, setWindow] = useState('day');
   const dispatch = useDispatch();
+  const page = useSelector((state: RootState) => state.galery.currentPage);
+
+  const requestBody = {
+    itemsPerPage: 10,
+    currentPage: page,
+  };
 
   const fetchImgurData = async () => {
     try {
-      const data = await fetchImgurGallery(section, sort, window);
-      dispatch(setGalery(data));
+      const data = await fetchImgurGallery(section, sort, window, requestBody);
+      //@ts-ignore
+      dispatch(setTotalPages(data.totalPages));
+      //@ts-ignore
+      dispatch(setGalery(data.currentItems));
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +36,7 @@ const Header = () => {
   useMemo(() => {
     fetchImgurData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [section, sort, window]);
+  }, [section, sort, window, page]);
 
   return (
     <section className="header_landing">

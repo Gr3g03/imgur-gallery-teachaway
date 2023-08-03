@@ -1,4 +1,4 @@
- export interface IImgurImage {
+ export interface IImage {
     id?: string,
     title: string,
     description: string,
@@ -88,5 +88,10 @@
             score: number
         }
     ],
+}
 
+
+export interface IImgurImages {
+    currentItems : IImage,
+    totalPages : number
 }
